@@ -3,7 +3,7 @@
 
 import { imageUrl } from '../data/animals.js'
 
-const SHARE_BASE = 'https://artoffauna.app/a/'
+const SHARE_BASE = 'https://ash-codess.github.io/art-of-fauna/a/'
 
 export function shareLink(slug) {
   return `${SHARE_BASE}${slug}`
