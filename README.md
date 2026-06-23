@@ -15,6 +15,20 @@ npm run build    # production bundle in dist/
 npm run preview  # serve the built bundle
 ```
 
+## Deploy (GitHub Pages)
+
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which builds the app
+and publishes it to GitHub Pages at
+**https://ash-codess.github.io/art-of-fauna/**.
+
+- The build sets Vite's `base` to `/art-of-fauna/` (via the `GITHUB_PAGES` env
+  var) so assets resolve under the project path.
+- A `404.html` (a copy of `index.html`) gives the SPA a fallback, so deep links
+  like `/art-of-fauna/a/snowy-owl` survive a refresh.
+- One-time setup: in the repo, **Settings → Pages → Build and deployment →
+  Source: GitHub Actions** (the workflow also enables this automatically on its
+  first run).
+
 ## The experience
 
 - **Library** (`/`) — a bento grid of plates. Unsolved plates are blurred

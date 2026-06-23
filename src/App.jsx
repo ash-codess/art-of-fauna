@@ -26,9 +26,11 @@ export default function App() {
   const inPlay = index >= 0
 
   // Keep the URL in sync so a solved plate can be shared / reopened.
+  // BASE_URL is '/' in dev and '/art-of-fauna/' on GitHub Pages.
   const goTo = useCallback((i, replace = false) => {
     setIndex(i)
-    const url = i >= 0 ? `/a/${animals[i].slug}` : '/'
+    const base = import.meta.env.BASE_URL
+    const url = i >= 0 ? `${base}a/${animals[i].slug}` : base
     const fn = replace ? 'replaceState' : 'pushState'
     try {
       window.history[fn]({ i }, '', url)
