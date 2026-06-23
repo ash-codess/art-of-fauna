@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    margin: 0;
+    background-color: theme('colors.sage.DEFAULT');
+    color: theme('colors.ink.DEFAULT');
+    font-family: theme('fontFamily.sans');
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Soft moss + terracotta colour fields for the frosted glass to pick up */
+    background-image:
+      radial-gradient(900px 720px at 10% -8%, rgba(63, 107, 76, 0.18), transparent 60%),
+      radial-gradient(820px 720px at 102% 108%, rgba(197, 107, 69, 0.16), transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+
+  .nums {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  /* Frosted glass surface — the core of the new visual language */
+  .glass {
+    @apply rounded-panel border border-white/55;
+    background: rgba(241, 243, 237, 0.55);
+    backdrop-filter: blur(18px) saturate(1.15);
+    -webkit-backdrop-filter: blur(18px) saturate(1.15);
+    box-shadow:
+      0 16px 38px rgba(38, 48, 42, 0.14),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .glass-soft {
+    @apply rounded-panel border border-white/50;
+    background: rgba(241, 243, 237, 0.42);
+    backdrop-filter: blur(12px) saturate(1.1);
+    -webkit-backdrop-filter: blur(12px) saturate(1.1);
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-chip border border-white/55
+           px-2.5 py-1 text-[10px] font-semibold uppercase tracking-chip text-ink/70;
+    background: rgba(241, 243, 237, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+
+  .icon-btn {
+    @apply grid h-10 w-10 place-items-center rounded-full border border-white/55 text-ink/70 transition-colors;
+    background: rgba(241, 243, 237, 0.5);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .icon-btn:hover {
+    @apply border-moss/50 text-moss;
+  }
+  .icon-btn:active {
+    @apply scale-95;
+  }
+
+  .guide-serif {
+    font-family: theme('fontFamily.serif');
+  }
+}
+
+/* Puzzle tiles should never show a text cursor or selection while dragging */
+.tile {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
