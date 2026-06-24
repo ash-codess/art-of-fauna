@@ -16,6 +16,8 @@ const CLASS_GLYPH = {
   Insect: '🦋',
   Mollusc: '🐙',
   Jellyfish: '🌀',
+  Crustacean: '🦞',
+  Echinoderm: '⭐',
 }
 
 // IUCN code → tone + glyph for the status chip.

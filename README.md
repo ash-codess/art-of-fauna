@@ -48,15 +48,17 @@ and publishes it to GitHub Pages at
   and **Next** to move on. A gentle idle "breathing" tween keeps the plate alive.
 - **Share** (`↗`) — exports a portrait share-card PNG (artwork + names) via the
   native share sheet where available, and copies a per-animal link
-  (`artoffauna.app/a/[slug]`, mirrored locally as `/a/slug`).
+  (`https://ash-codess.github.io/art-of-fauna/a/<slug>`).
 
 - **Synthwave score** — while the puzzle is being solved, a retro synthwave loop
   plays (driving 8th-note saw bass, a 16th-note arpeggio through a tempo-synced
-  dotted-8th echo, a warm detuned-saw pad on an Am–F–C–G progression, and
+  dotted-8th echo, a warm detuned-saw pad over a 4-chord progression, and
   four-on-the-floor drums), synthesised live with the Web Audio API on a
-  lookahead scheduler at ~100 BPM — no audio asset, works offline. A bright chord
-  with a filter sweep resolves on solve. The `♪` button mutes/unmutes (persisted);
-  the context only starts after a user gesture, per browser autoplay rules.
+  lookahead scheduler. There are **four tracks** — _Midnight Drive_, _Neon
+  Coast_, _Afterglow_, _Outrun_ — differing in key, tempo (90–124 BPM), and lead
+  timbre; each animal opens on a consistent track, and the `♪ <track> ›` label
+  cycles to the next. A bright chord resolves on solve. The mute toggle is
+  persisted; the context only starts after a user gesture, per autoplay rules.
 
 One custom ease — `CustomEase.create("soft", "0.6,0,0.2,1")` — is reused
 everywhere for a consistent, weighted feel. `prefers-reduced-motion` is honoured

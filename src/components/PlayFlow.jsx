@@ -12,6 +12,13 @@ import { markCompleted } from '../lib/storage.js'
 import { shareAnimal } from '../lib/share.js'
 import { audio } from '../lib/audio.js'
 
+// Stable per-animal number so each species opens on a consistent track.
+function hashSlug(slug) {
+  let h = 0
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) | 0
+  return Math.abs(h)
+}
+
 const SHARE_MESSAGES = {
   shared: 'Shared ✓',
   'downloaded+copied': 'Card saved · link copied ✓',
@@ -27,6 +34,7 @@ export default function PlayFlow({ animal, onBack, onNext, onCompleted }) {
   const [shuffleSignal, setShuffleSignal] = useState(0)
   const [toast, setToast] = useState(null)
   const [muted, setMuted] = useState(() => audio.isMuted())
+  const [trackName, setTrackName] = useState(null)
 
   const frameRef = useRef(null)
   const stageRef = useRef(null)
@@ -41,12 +49,12 @@ export default function PlayFlow({ animal, onBack, onNext, onCompleted }) {
     setProgress(0)
   }, [animal.slug])
 
-  // Calm ambient audio plays while solving; it stops once the plate is revealed.
+  // Synthwave plays while solving (one track per animal); stops once revealed.
   useEffect(() => {
-    if (subview === 'puzzle') audio.startPad()
+    if (subview === 'puzzle') setTrackName(audio.startPad(hashSlug(animal.slug)))
     else audio.stopPad()
     return () => audio.stopPad()
-  }, [subview])
+  }, [subview, animal.slug])
 
   // Page entrance: the whole stage slides in with the shared soft ease.
   useLayoutEffect(() => {
@@ -125,6 +133,16 @@ export default function PlayFlow({ animal, onBack, onNext, onCompleted }) {
           <span className="text-[10px] font-semibold uppercase tracking-chip text-ink/45">
             {inPuzzle ? 'Drag tiles into place' : 'Field guide'}
           </span>
+          {inPuzzle && trackName && (
+            <button
+              type="button"
+              onClick={() => setTrackName(audio.nextTrack())}
+              title="Next track"
+              className="mt-0.5 text-[10px] font-semibold uppercase tracking-chip text-moss transition-colors hover:text-terra"
+            >
+              ♪ {trackName} ›
+            </button>
+          )}
         </div>
 
         <div className="flex items-center gap-2">
